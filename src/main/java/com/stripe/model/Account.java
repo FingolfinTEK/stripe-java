@@ -8,9 +8,14 @@ import com.stripe.exception.InvalidRequestException;
 import com.stripe.net.APIResource;
 import com.stripe.net.RequestOptions;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 import java.util.Map;
 
+@Getter @Setter @EqualsAndHashCode
 public class Account extends APIResource implements HasId, MetadataStore<Account> {
 	String id;
 	String businessLogo;
@@ -41,163 +46,12 @@ public class Account extends APIResource implements HasId, MetadataStore<Account
 	Boolean transfersEnabled;
 	Verification verification;
 
-	@Deprecated
-	List<String> currenciesSupported;
-
-	public String getId() {
-		return id;
-	}
-
-	public String getBusinessLogo()
-	{
-		return businessLogo;
-	}
-
-	public String getBusinessName()
-	{
-		return businessName;
-	}
-
-	public String getBusinessPrimaryColor(){
-		return businessPrimaryColor;
-	}
-
-	public void setBusinessPrimaryColor(String businessPrimaryColor){
-		this.businessPrimaryColor = businessPrimaryColor;
-	}
-
-	public String getBusinessURL()
-	{
-		return businessURL;
-	}
-
-	public Boolean getChargesEnabled() {
-		return chargesEnabled;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public Boolean getDebitNegativeBalances() {
-		return debitNegativeBalances;
-	}
-
-	public void setDebitNegativeBalances(Boolean debitNegativeBalances) {
-		this.debitNegativeBalances = debitNegativeBalances;
-	}
-
-	public AccountDeclineChargeOn getDeclineChargeOn(){
-		return declineChargeOn;
-	}
-
-	public void setDeclineChargeOn(AccountDeclineChargeOn declineChargeOn){
-		this.declineChargeOn = declineChargeOn;
-	}
-
-	public String getDefaultCurrency() {
-		return defaultCurrency;
-	}
-
-	public Boolean getDetailsSubmitted() {
-		return detailsSubmitted;
-	}
-
-	public String getDisplayName() {
-		return displayName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public ExternalAccountCollection getExternalAccounts()
-	{
-		return externalAccounts;
-	}
-
-	public Keys getKeys()
-	{
-		return keys;
-	}
-
-	public LegalEntity getLegalEntity() {
-		return legalEntity;
-	}
-
-	public Boolean getManaged()
-	{
-		return managed;
-	}
-
-	public Map<String, String> getMetadata()
-	{
-		return metadata;
-	}
-
-	public String getProductDescription(){
-		return productDescription;
-	}
-
-	public void setProductDescription(String productDescription){
-		this.productDescription = productDescription;
-	}
-
-	public String getStatementDescriptor() {
-		return statementDescriptor;
-	}
-
-	public String getSupportEmail()
-	{
-		return supportEmail;
-	}
-
-	public String getSupportPhone()
-	{
-		return supportPhone;
-	}
-
-	public String getSupportURL()
-	{
-		return supportURL;
-	}
-
-	public String getTimezone() {
-		return timezone;
-	}
-
-	public AccountTosAcceptance getTosAcceptance(){
-		return tosAcceptance;
-	}
-
-	public void setTosAcceptance(AccountTosAcceptance tosAcceptance){
-		this.tosAcceptance = tosAcceptance;
-	}
-
-	public AccountTransferSchedule getTransferSchedule(){
-		return transferSchedule;
-	}
-
-	public void setTransferSchedule(AccountTransferSchedule transferSchedule){
-		this.transferSchedule = transferSchedule;
-	}
-
-	public Boolean getTransfersEnabled() {
-		return transfersEnabled;
-	}
-
-	public Verification getVerification() {
-		return verification;
-	}
-
 	/**
 	 * @deprecated
 	 * Use the country_specs endpoint (https://stripe.com/docs/upgrades#2016-03-07)
 	 */
 	@Deprecated
-	public List<String> getCurrenciesSupported() {
-		return currenciesSupported;
-	}
+	List<String> currenciesSupported;
 
 	public static Account create(Map<String, Object> params)
 			throws AuthenticationException, InvalidRequestException,
@@ -307,57 +161,17 @@ public class Account extends APIResource implements HasId, MetadataStore<Account
 		return request(RequestMethod.DELETE, instanceURL(Account.class, this.id), params, DeletedAccount.class, options);
 	}
 
+	@Getter @Setter @EqualsAndHashCode
 	public static class Verification extends StripeObject {
 		Boolean contacted;
 		String disabledReason;
 		Long dueBy;
 		List<String> fieldsNeeded;
-
-		public Boolean getContacted() {
-			return contacted;
-		}
-
-		public String getDisabledReason() {
-			return disabledReason;
-		}
-
-		public Long getDueBy() {
-			return dueBy;
-		}
-
-		public List<String> getFieldsNeeded() {
-			return fieldsNeeded;
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			if (this == o) {
-				return true;
-			}
-			if (o == null || getClass() != o.getClass()) {
-				return false;
-			}
-
-			Verification ve = (Verification) o;
-			return equals(contacted, ve.contacted) &&
-				equals(disabledReason, ve.disabledReason) &&
-				equals(dueBy, ve.dueBy) &&
-				equals(fieldsNeeded, ve.fieldsNeeded);
-		}
 	}
 
+	@Getter @Setter @EqualsAndHashCode
 	public static class Keys extends StripeObject {
 		String publishable;
 		String secret;
-
-		public String getPublishable()
-		{
-			return publishable;
-		}
-
-		public String getSecret()
-		{
-			return secret;
-		}
 	}
 }
